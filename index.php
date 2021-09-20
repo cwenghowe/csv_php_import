@@ -68,7 +68,8 @@
             echo "<input type='submit' name='save' value='save'></input></form>";
             echo "<br>";
             fclose($handle);
-        } else if($ext=="") {
+        } 
+        else if($ext=="") {
             echo "To use this app, please upload student list in CSV format!";
         } 
         else {
