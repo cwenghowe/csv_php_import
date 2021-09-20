@@ -45,22 +45,36 @@
 
     if (isset($_POST['submit'])) 
 	{
-		$handle = fopen($_FILES['filename']['tmp_name'], "r");
-		$headers = fgetcsv($handle, 1000, ","); // remove header
-        $student = 0;
-        echo "<form method='post' action=''><table border=1>";
-        printNameListRow("NO.",$headers[0],$headers[1],$headers[2],$headers[3],TRUE);
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
-		{
-           printNameListRow($student+1,$data[0],$data[1],$data[2],$data[3]);
-           $student++;
-		}
+        $ext = "";
+        if(isset($_FILES)&$_FILES['filename']['name']!="") {
+            $tmp = explode('.',$_FILES['filename']['name']);
+		    $ext = end($tmp);
+            echo "Uploaded file type: ".strtoupper($ext);
+        }
+        if($ext=='csv') {
+            $handle = fopen($_FILES['filename']['tmp_name'], "r");
+            $headers = fgetcsv($handle, 1000, ","); // remove header
+            $student = 0;
+            echo "<form method='post' action=''><table border=1>";
+            printNameListRow("NO.",$headers[0],$headers[1],$headers[2],$headers[3],TRUE);
+            while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
+            {
+            printNameListRow($student+1,$data[0],$data[1],$data[2],$data[3]);
+            $student++;
+            }
+            
+            echo "</table>";
+            echo "Total students in the list: ".$student."<br>";
+            echo "<input type='submit' name='save' value='save'></input></form>";
+            echo "<br>";
+            fclose($handle);
+        } else if($ext=="") {
+            echo "To use this app, please upload student list in CSV format!";
+        } 
+        else {
+            echo "<br>Sorry, the current type of ".strtoupper($ext)." file is not supported at the moment! Please use CSV file only";
+        }
         
-        echo "</table>";
-        echo "Total students in the list: ".$student."<br>";
-        echo "<input type='submit' name='save' value='save'></input></form>";
-        echo "<br>";
-        fclose($handle);
     }
     ?>
 
