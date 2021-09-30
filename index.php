@@ -1,5 +1,5 @@
 <?php
-    required 'vendor/autoload.php';
+    require 'vendor/autoload.php';
 
     use PhpOffice\PhpSpreadsheet\Spreadsheet;
     use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -81,6 +81,11 @@
             echo "<br>";
             fclose($handle);
         } 
+        else if($ext="xlsx") {
+            $sheetReader = \PhpOffice\PhpSpreadsheet\IOFactory::createReaderForFile($_FILES['filename']['tmp_name']);
+            $sheetReader->setReadDataOnly(true);
+            $sheetReader->load($_FILES['filename']['tmp_name']);
+        }
         else if($ext=="") {
             echo "To use this app, please upload student list in CSV format!";
         } 
