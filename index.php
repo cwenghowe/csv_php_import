@@ -59,8 +59,8 @@
         return print "<form method='post' action=''><table border=1>";
     }
 
-    function printFormFooter() {
-
+    function printFormFooter($count) {
+        return print "</table>Total students in the list: ".$count."<br><br><input type='submit' name='save' value='save'></input></form><br>";
     }
 
     if (isset($_POST['submit'])) 
@@ -82,12 +82,7 @@
                 printNameListRow($student+1,$data[0],$data[1],$data[2],$data[3]);
                 $student++;
             }
-            
-            
-            echo "</table>";
-            echo "Total students in the list: ".$student."<br>";
-            echo "<input type='submit' name='save' value='save'></input></form>";
-            echo "<br>";
+            printFormFooter($student);
             fclose($handle);
         } 
         else if($ext="xlsx") {
@@ -109,12 +104,9 @@
 
                 $worksheet = $spreadsheet->getActiveSheet();
                 $data = $worksheet->toArray();
-                // print_r($worksheet->toArray());
             }
-            // print_r($data);
             printFormHeader();
             $student = -1;
-
             foreach ($data as $row) {
                 if($student==-1) {
                     printNameListRow("No.",$row[0],$row[1],$row[2],$row[3],true);
@@ -124,10 +116,7 @@
                 }
                 $student++;
             }      
-            echo "</table>";
-            echo "Total students in the list: ".$student."<br>";
-            echo "<input type='submit' name='save' value='save'></input></form>";
-            echo "<br>";
+            printFormFooter($student);
         }
         else if($ext=="") {
             echo "To use this app, please upload student list in CSV format!";
@@ -135,7 +124,6 @@
         else {
             echo "<br>Sorry, the current type of ".strtoupper($ext)." file is not supported at the moment! Please use CSV file only";
         }
-        
     }
     ?>
 
