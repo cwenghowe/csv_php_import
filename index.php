@@ -33,17 +33,32 @@
 
     <?php
 
-    function printNameListRow($i, $data1, $data2, $data3, $data4, $header=FALSE) {
+    // function printNameListRow($i, $data1, $data2, $data3, $data4, $header=FALSE) {
+    //     if($header){
+    //         return print "<th>".$i."</th><th>".$data1."</th><th>".$data2."</th><th>".$data3."</th><th>".$data4."</th>";
+    //     } else {
+    //         $open = "<tr>";
+    //         $end  = "</tr>";
+    //         $init  = "<td>".$i."</td>";
+    //         $form1 = "<input type='text' name='matric[]' value='".$data1."' size='50'></input>";
+    //         $form2 = "<input type='text' name='name[]' value='".$data2."' ></input>";
+    //         $form3 = "<input type='text' name='email[]' value='".$data3."' size='40'></input>";
+    //         $form4 = "<input type='text' name='group[]' value='".$data4."'></input>";
+    //         return print $open.$init."<td>".$form1."</td><td>".$form2."</td><td>".$form3."</td><td>".$form4."</td>".$end;
+    //     }
+    // }
+
+    function printNameListRow($i, $data, $header=FALSE) {
         if($header){
-            return print "<th>".$i."</th><th>".$data1."</th><th>".$data2."</th><th>".$data3."</th><th>".$data4."</th>";
+            return print "<th>".$i."</th><th>".$data[0]."</th><th>".$data[1]."</th><th>".$data[2]."</th><th>".$data[3]."</th>";
         } else {
             $open = "<tr>";
             $end  = "</tr>";
             $init  = "<td>".$i."</td>";
-            $form1 = "<input type='text' name='matric[]' value='".$data1."' size='50'></input>";
-            $form2 = "<input type='text' name='name[]' value='".$data2."' ></input>";
-            $form3 = "<input type='text' name='email[]' value='".$data3."' size='40'></input>";
-            $form4 = "<input type='text' name='group[]' value='".$data4."'></input>";
+            $form1 = "<input type='text' name='matric[]' value='".$data[0]."' size='50'></input>";
+            $form2 = "<input type='text' name='name[]' value='".$data[1]."' ></input>";
+            $form3 = "<input type='text' name='email[]' value='".$data[2]."' size='40'></input>";
+            $form4 = "<input type='text' name='group[]' value='".$data[3]."'></input>";
             return print $open.$init."<td>".$form1."</td><td>".$form2."</td><td>".$form3."</td><td>".$form4."</td>".$end;
         }
     }
@@ -69,10 +84,12 @@
             $headers = fgetcsv($handle, 1000, ","); // remove header
             $student = 0;
             printFormHeader();
-            printNameListRow("NO.",$headers[0],$headers[1],$headers[2],$headers[3],TRUE);
+            // printNameListRow("NO.",$headers[0],$headers[1],$headers[2],$headers[3],TRUE);
+            printNameListRow("No.",$headers,TRUE);
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) 
             {
-                printNameListRow($student+1,$data[0],$data[1],$data[2],$data[3]);
+                // printNameListRow($student+1,$data[0],$data[1],$data[2],$data[3]);
+                printNameListRow($student+1, $data);
                 $student++;
             }
             printFormFooter($student);
@@ -102,9 +119,11 @@
             $student = -1;
             foreach ($data as $row) {
                 if($student==-1) {
-                    printNameListRow("No.",$row[0],$row[1],$row[2],$row[3],true);
+                    // printNameListRow("No.",$row[0],$row[1],$row[2],$row[3],true);
+                    printNameListRow("No.",$row,true);
                 } else {
-                    printNameListRow($student+1,$row[0],$row[1],$row[2],$row[3]);
+                    // printNameListRow($student+1,$row[0],$row[1],$row[2],$row[3]);
+                    printNameListRow($student+1,$row);
                     
                 }
                 $student++;
