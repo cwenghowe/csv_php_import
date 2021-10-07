@@ -31,58 +31,6 @@
         echo "information saved!";
     }
 ?>
-<form>
-<table id="example2" class="display nowrap" style="width:100%">
-        <thead>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Matric</th>
-                <th>Email</th>
-                <th>Group</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td><input type="text" name='name[]' value='Lim Ai Jia'></input></td>
-                <td><input type="text" name='matric[]' value='A012'></input></td>
-                <td><input type="text" name='email[]' value='A012@graduate.utm.my'></input></td>
-                <td><input type="text" name='group[]' value='1'></input></td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>FAISAL BIN RESTU</td>
-                <td>A013</td>
-                <td>A013@graduate.utm.my</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>MUHAMMAD MAXLAN BIN ANUAR</td>
-                <td>A014</td>
-                <td>A014@graduate.utm.my</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td>MUHAMAD ZAMIE BIN MOHD HELME</td>
-                <td>A015</td>
-                <td>A015@graduate.utm.my</td>
-                <td>1</td>
-            </tr>
-        </tbody>
-        <tfoot>
-            <tr>
-                <th>No</th>
-                <th>Name</th>
-                <th>Matric</th>
-                <th>Email</th>
-                <th>Group</th>
-            </tr>
-        </tfoot>
-    </table>
-</form>
     <form enctype='multipart/form-data' action='' method='post'>
     
         <label>Upload Product CSV file Here</label>
@@ -207,14 +155,6 @@ $(document).ready(function() {
     } );
 } );
 
-$(document).ready(function() {
-    var table = $('#example2').DataTable( {
-        rowReorder: {
-            selector: 'td:nth-child(2)'
-        },
-        responsive: true
-    } );
-} );
 </script>
 </body>
 
